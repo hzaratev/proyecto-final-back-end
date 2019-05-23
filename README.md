@@ -4,6 +4,8 @@ A django-rest boilerplate for 4Geeks Academy students. It features ready-for-dep
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/4GeeksAcademy/django-rest-hello.git)
 
+
+
 ## Features
 
 - Ready to deploy to heroku in just 1 minute (for free).

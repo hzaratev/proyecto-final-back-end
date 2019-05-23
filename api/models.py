@@ -128,8 +128,8 @@ class NotificationSerializer(serializers.ModelSerializer):
 
 class Talk(models.Model):
     message = models.CharField(max_length=250, default='')
-    usr_from = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    usr_to = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    usr_from = models.ForeignKey(User, related_name='usr_from', on_delete=models.DO_NOTHING)
+    usr_to = models.ForeignKey(User, related_name='usr_to', on_delete=models.DO_NOTHING)
 
 
 class TalkSerializer(serializers.ModelSerializer):
@@ -137,4 +137,4 @@ class TalkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Talk
-        fields = ('message', 'usr_from', 'usr_to')
+        fields = ('message', 'usr_from', 'user_to')

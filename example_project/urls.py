@@ -16,13 +16,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import url
-from rest_framework_swagger.views import get_swagger_view
-
-schema_view = get_swagger_view(title='API Boilerplate - 4Geeks Academy')
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/login', obtain_auth_token),
     path('api/', include('api.urls')),
-    url(r'^$', schema_view)
+    path('', include('rest_framework.urls')),
 ]

@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.models import User, UserSerializer
 from api.models import Product, ProductSerializer
+from api.models import Profile, ProfileSerializer
 
 
 
@@ -56,5 +57,20 @@ class ProductView(APIView):
             product_saved = serializer.save()
         return Response({"success": "Product '{}' created successfully".format(product_saved.title)})
 
+class ProfileView(APIView):
+    def get(self, request):
+        profiles = Profile.objects.all()
+        serializer = ProfileSerializer(profiles, many=True)
+        return Response({"profiles": serializer.data})
 
+    def post(self, request):
+        profile = request.data.get('profile')
+
+        # Create an article from the above data
+        serializer = ProfileSerializer(data=profile)
+        if serializer.is_valid(raise_exception=True):
+            profile_saved = serializer.save()
+        return Response({"success": "Profile '{}' created successfully".format(profile_saved.id)})
+
+    
     

@@ -1,9 +1,15 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
 from api.models import User, UserSerializer
 from api.models import Product, ProductSerializer
 from api.models import Profile, ProfileSerializer
+from api.models import Address, AddressSerializer
+from api.models import Category, CategorySerializer
+from api.models import Like, LikeSerializer
+from api.models import Notification, NotificationSerializer
+from api.models import Talk, TalkSerializer
 
 
 
@@ -71,6 +77,86 @@ class ProfileView(APIView):
         if serializer.is_valid(raise_exception=True):
             profile_saved = serializer.save()
         return Response({"success": "Profile '{}' created successfully".format(profile_saved.id)})
+
+
+class AddressView(APIView):
+    def get(self, request):
+        address = Address.objects.all()
+        serializer = AddressSerializer(address, many=True)
+        return Response({"address": serializer.data})
+
+    def post(self, request):
+        address = request.data.get('address')
+
+        # Create an article from the above data
+        serializer = AddressSerializer(data=address)
+        if serializer.is_valid(raise_exception=True):
+            address_saved = serializer.save()
+        return Response({"success": "Address '{}' created successfully".format(address_saved.id)})
+
+
+class CategoryView(APIView):
+    def get(self, request):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response({"categories": serializer.data})
+
+    def post(self, request):
+        category = request.data.get('category')
+
+        # Create an article from the above data
+        serializer = CategorySerializer(data=category)
+        if serializer.is_valid(raise_exception=True):
+            category_saved = serializer.save()
+        return Response({"success": "Category '{}' created successfully".format(category_saved.id)})
+
+
+class LikeView(APIView):
+    def get(self, request):
+        likes = Like.objects.all()
+        serializer = LikeSerializer(likes, many=True)
+        return Response({"likes": serializer.data})
+
+    def post(self, request):
+        like = request.data.get('like')
+
+        # Create an article from the above data
+        serializer = LikeSerializer(data=like)
+        if serializer.is_valid(raise_exception=True):
+            like_saved = serializer.save()
+        return Response({"success": "Like '{}' created successfully".format(like_saved.id)})
+
+
+class NotificationView(APIView):
+    def get(self, request):
+        notifications = Notification.objects.all()
+        serializer = NotificationSerializer(notifications, many=True)
+        return Response({"notifications": serializer.data})
+
+    def post(self, request):
+        notification = request.data.get('notification')
+
+        # Create an article from the above data
+        serializer = NotificationSerializer(data=notification)
+        if serializer.is_valid(raise_exception=True):
+            notification_saved = serializer.save()
+        return Response({"success": "Notification '{}' created successfully".format(notification_saved.id)})
+
+
+class TalkView(APIView):
+    def get(self, request):
+        talks = Talk.objects.all()
+        serializer = TalkSerializer(talks, many=True)
+        return Response({"talks": serializer.data})
+
+    def post(self, request):
+        talk = request.data.get('talk')
+
+        # Create an article from the above data
+        serializer = TalkSerializer(data=talk)
+        if serializer.is_valid(raise_exception=True):
+            talk_saved = serializer.save()
+        return Response({"success": "Talk '{}' created successfully".format(talk_saved.id)})
 
     
     

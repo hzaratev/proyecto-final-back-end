@@ -91,7 +91,7 @@ class LikeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Like
-        fields = ('')
+        fields = ('user_id', 'product_id')
 
 class Notification(models.Model):
     description = models.CharField(max_length=50, default='')

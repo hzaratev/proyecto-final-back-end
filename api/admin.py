@@ -1,4 +1,8 @@
 from django.contrib import admin
-from api.models import Contact
-# Register your models into de django admin here.
-admin.site.register(Contact)
+
+from .models import Product, User, Category
+
+
+admin.site.register(Product)
+admin.site.register(User)
+admin.site.register(Category)

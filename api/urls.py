@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from api import views
 urlpatterns = [
-    path('contacts/<int:contact_id>', views.ContactsView.as_view(), name='id-contacts'),
-    path('contacts/', views.ContactsView.as_view(), name='all-contacts'),
+    path('users/<int:user_id>', views.UserView.as_view(), name='id-users'),
+    path('users/', views.UserView.as_view(), name='all-users'),
+    path('products/', views.ProductView.as_view(), name='all-products'),
 ]

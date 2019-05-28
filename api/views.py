@@ -1,24 +1,20 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Contact, ContactSerializer
 from rest_framework.response import Response
-<<<<<<< HEAD
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 
-# Create your views here.
+from api.models import User, UserSerializer
+from api.models import Product, ProductSerializer
+from api.models import Profile, ProfileSerializer
+from api.models import Address, AddressSerializer
+from api.models import Category, CategorySerializer
+from api.models import Like, LikeSerializer
+from api.models import Notification, NotificationSerializer
+from api.models import Talk, TalkSerializer
 
-class ContactView(APIView):
-    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
-    permission_classes = (IsAuthenticated,)
-    
-    def get (self, request):
-        contacts = Contact.objects.all()
-        serializer = ContactSerializer(contacts, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class CustomAuthToken(ObtainAuthToken):
 
@@ -35,30 +31,17 @@ class CustomAuthToken(ObtainAuthToken):
             'email': user.email
             })
 
+
 class Logout(APIView):
+    
     def get(self, request, format=None):
 
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
 
-=======
 
-from api.models import User, UserSerializer
-from api.models import Product, ProductSerializer
-from api.models import Profile, ProfileSerializer
-from api.models import Address, AddressSerializer
-from api.models import Category, CategorySerializer
-from api.models import Like, LikeSerializer
-from api.models import Notification, NotificationSerializer
-from api.models import Talk, TalkSerializer
-
-
-
-"""
-The ContactsView will contain the logic on how to:
- GET, POST, PUT or delete the contacts
-"""
 class UserView(APIView):
+    
     def get(self, request, user_id=None):
 
         if user_id is not None:
@@ -90,6 +73,7 @@ class UserView(APIView):
 
 
 class ProductView(APIView):
+    
     def get(self, request):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
@@ -105,6 +89,7 @@ class ProductView(APIView):
         return Response({"success": "Product '{}' created successfully".format(product_saved.title)})
 
 class ProfileView(APIView):
+    
     def get(self, request):
         profiles = Profile.objects.all()
         serializer = ProfileSerializer(profiles, many=True)
@@ -121,6 +106,7 @@ class ProfileView(APIView):
 
 
 class AddressView(APIView):
+    
     def get(self, request):
         address = Address.objects.all()
         serializer = AddressSerializer(address, many=True)
@@ -137,6 +123,7 @@ class AddressView(APIView):
 
 
 class CategoryView(APIView):
+    
     def get(self, request):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
@@ -153,6 +140,7 @@ class CategoryView(APIView):
 
 
 class LikeView(APIView):
+    
     def get(self, request):
         likes = Like.objects.all()
         serializer = LikeSerializer(likes, many=True)
@@ -169,6 +157,7 @@ class LikeView(APIView):
 
 
 class NotificationView(APIView):
+    
     def get(self, request):
         notifications = Notification.objects.all()
         serializer = NotificationSerializer(notifications, many=True)
@@ -185,6 +174,7 @@ class NotificationView(APIView):
 
 
 class TalkView(APIView):
+    
     def get(self, request):
         talks = Talk.objects.all()
         serializer = TalkSerializer(talks, many=True)
@@ -201,4 +191,3 @@ class TalkView(APIView):
 
     
     
->>>>>>> 6d1f43b87c0656ada45044ed5620b726db638b33

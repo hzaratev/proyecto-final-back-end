@@ -116,8 +116,4 @@ class TalkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Talk
-<<<<<<< HEAD
-        fields = ('message', 'usr_from', 'user_to')
-=======
         fields = ('message', 'usr_from', 'usr_to')
->>>>>>> 6d1f43b87c0656ada45044ed5620b726db638b33

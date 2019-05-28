@@ -4,30 +4,9 @@ All your application modules and serializers are going to be declared inside thi
 from rest_framework import serializers
 from django.db import models
 
-"""
-Define he Contact Entity into your applcation model
-"""
-class Contact(models.Model):
-    first_name = models.CharField(max_length=50, default='')
-    last_name = models.CharField(max_length=50, default='')
-    phone_number = models.CharField(max_length=15, default='')
-    email = models.CharField(max_length=150, default='')
-
-"""
-The ContactSerializer is where you will specify what properties
-from the ever Contact should be inscuded in the JSON response
-"""
-class ContactSerializer(serializers.ModelSerializer):
-
-
-    class Meta:
-        model = Contact
-        # what fields to include?
-        fields = ('first_name','last_name', 'phone_number', 'email')
-
 class User(models.Model):
     user_name = models.CharField(max_length=50, default='')
-    email = models.CharField(max_length=150, default='')
+    email = models.EmailField(max_length=150, default='')
     password = models.CharField(max_length=50, default='')
 
 
@@ -36,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'user_name','email', 'password')
+        fields = ('id', 'user_name', 'email', 'password')
 
 
 class Profile(models.Model):
@@ -55,7 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class Address(models.Model):
-    contact_title = models.CharField(max_length=50, default='')
+    contact_title = models.CharField(max_length=50)
     address = models.CharField(max_length=50, default='')
     city = models.CharField(max_length=50, default='')
     user_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
@@ -73,7 +52,7 @@ class AddressSerializer(serializers.ModelSerializer):
 class Category(models.Model):
     category_name = models.CharField(max_length=50, default='')
     state = models.BooleanField(default=False)
-    parent = models.ForeignKey('self', on_delete=models.DO_NOTHING, null=True, related_name='categoria')
+    parent = models.ForeignKey('self', on_delete=models.DO_NOTHING, blank=True, null=True, related_name='categoria')
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -85,11 +64,11 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class Product(models.Model):
-    product_name = models.CharField(max_length=50, default='')
-    photo = models.CharField(max_length=150, default='')
+    title = models.CharField(max_length=50, null=True)
     description = models.CharField(max_length=500, default='')
+    image = models.TextField(default='')
     quantity = models.IntegerField()
-    date_upload = models.DateField()
+    pub_date = models.DateField('date published', null=True)
     user_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     category_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
 
@@ -99,7 +78,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('product_name', 'photo', 'description', 'quantity', 'date_upload', 'user_id', 'category_id', 'address_id')
+        fields = ('title', 'description', 'image', 'quantity', 'pub_date', 'user_id', 'category_id')
 
 
 class Like(models.Model):
@@ -112,7 +91,7 @@ class LikeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Like
-        fields = ('')
+        fields = ('user_id', 'product_id')
 
 class Notification(models.Model):
     description = models.CharField(max_length=50, default='')
@@ -137,4 +116,8 @@ class TalkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Talk
+<<<<<<< HEAD
         fields = ('message', 'usr_from', 'user_to')
+=======
+        fields = ('message', 'usr_from', 'usr_to')
+>>>>>>> 6d1f43b87c0656ada45044ed5620b726db638b33

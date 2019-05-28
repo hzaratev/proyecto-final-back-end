@@ -22,5 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login', obtain_auth_token),
     path('api/', include('api.urls')),
+<<<<<<< HEAD
     path('', include('rest_framework.urls')),
 ]
+=======
+    url(r'^$', schema_view)
+]
+>>>>>>> 6d1f43b87c0656ada45044ed5620b726db638b33

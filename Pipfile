@@ -16,6 +16,7 @@ django-extensions = "*"
 django-rest-swagger = "*"
 
 [dev-packages]
+pylint = "*"
 
 [scripts]
 migrate= "python manage.py migrate"
